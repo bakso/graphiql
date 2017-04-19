@@ -47,7 +47,21 @@ export class DocExplorer extends React.Component {
   constructor() {
     super();
 
-    this.state = { navStack: [ initialNav ] };
+    this.state = { navStack: [ initialNav ]};
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const schema = nextProps.schema;
+    if (this.state.navStack.length === 1 && schema) {
+      const navStack = this.state.navStack;
+      const queryType = schema.getQueryType();
+      this.setState({
+        navStack: navStack.concat([ {
+          name: queryType.name,
+          def: queryType
+        } ])
+      });
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -87,7 +101,10 @@ export class DocExplorer extends React.Component {
         />;
     } else if (navStack.length === 1) {
       content =
-        <SchemaDoc schema={schema} onClickType={this.handleClickTypeOrField} />;
+        <SchemaDoc
+          schema={schema}
+          onClickType={this.handleClickTypeOrField}
+        />;
     } else if (isType(navItem.def)) {
       content =
         <TypeDoc

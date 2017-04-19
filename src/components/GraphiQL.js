@@ -111,11 +111,11 @@ export class GraphiQL extends React.Component {
       operationName,
       response: props.response,
       editorFlex: Number(this._storage.get('editorFlex')) || 1,
-      variableEditorOpen: Boolean(variables),
+      variableEditorOpen: true,
       variableEditorHeight:
         Number(this._storage.get('variableEditorHeight')) || 200,
       docExplorerOpen:
-        (this._storage.get('docExplorerOpen') === 'true') || false,
+        (this._storage.get('docExplorerOpen') === 'true') || true,
       historyPaneOpen:
           (this._storage.get('historyPaneOpen') === 'true') || false,
       docExplorerWidth: Number(this._storage.get('docExplorerWidth')) || 350,
